@@ -130,4 +130,7 @@ dmypy.json
 
 # Datasets
 *.json
-*.csv
+
+# Directories
+/too-big-data
+
