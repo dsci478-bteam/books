@@ -1,54 +1,73 @@
 from tkinter import *
 import tkinter as tk
+import urllib.request
+import io
+from PIL import ImageTk, Image
+
+#Variable to hold user values
+list_of_users = []
 
 window = tk.Tk()
-window.geometry("800x500")
+window.geometry("1000x500")
 
-# Top Title
-topLabel = Label(window, justify = tk.CENTER, text = "GoodReads Book Recommender System", font = 'Helvetica 18 bold')
-topLabel.grid(row = 0, column = 1)
-space1 = Label(window, text = "")
-space1.grid(row = 1, column = 0)
+link = "https://knowledgequest.aasl.org/wp-content/uploads/2019/05/GoodReads-logo.jpg"
 
-# Labels
-#Label(window, text = "Test test").pack()
-NewUserLabel = Label(window, text = "New User", font = 'Helvetica 12 bold')
-NewUserLabel.grid(row = 3, column = 0)
-NewUserEnter = Label(window, justify = tk.LEFT, text = "Enter New UserID", font = 'Helvetica 10')
-NewUserEnter.grid(row = 5, column = 0)
+class WebImage:
+    def __init__(self, url):
+        with urllib.request.urlopen(url) as u:
+            raw_data = u.read()
+        #self.image = tk.PhotoImage(data=base64.encodebytes(raw_data))
+        image = Image.open(io.BytesIO(raw_data))
+        self.image = ImageTk.PhotoImage(image)
 
-# Whitespace
-space2 = Label(window, text = "")
-space2.grid(row = 6, column = 0)
+    def get(self):
+        return self.image
 
-RetUserLabel = Label(window, text = "Returning User", font = 'Helvetica 12 bold')
-RetUserLabel.grid(row = 7, column = 0)
-RetUserEnter = Label(window, text = "Enter Returning UserID", font = 'Helvetica 10')
-RetUserEnter.grid(row = 8, column = 0)
+img = WebImage(link).get()
 
-# Text Input
-NewUserID = Entry(window, width = 60, borderwidth= 5, font = 'Helvetica 12')
-NewUserID.grid(row = 5, column = 1)
-RetUserID = Entry(window, width = 60, borderwidth= 5, font = 'Helvetica 12')
-RetUserID.grid(row = 8, column = 1)
+#add image to top center
+label_img= Label(window, image=img, width=270)
+label_img.grid(row = 0, column = 0, columnspan = 4)
+
+#add title below image
+topLabel = Label(window, text = "GoodReads Book Recommender System", font = 'Helvetica 18 bold', width=65)
+topLabel.grid(row = 1, column = 0, columnspan = 4)
+
+#label for returning user
+RetUserLabel = Label(window, text = "\nReturning User", font = 'Helvetica 12 bold')
+RetUserLabel.grid(row = 5, column = 0)
+#enter userID text
+RetUserEnter = Label(window, text = "\t\t\tEnter Returning UserID", font = 'Helvetica 10')
+RetUserEnter.grid(row = 6, column = 0)
+#place to enter the ID
+RetUserID = Entry(window, width = 20, borderwidth = 6, font = 'Helvetica 12')
+RetUserID.grid(row = 6, column = 0, columnspan=4)
+
+#label for new user
+NewUserLabel = Label(window, text = "\nNew User", font = 'Helvetica 12 bold')
+NewUserLabel.grid(row = 8, column = 0)
+#enter userID text
+NewUserEnter = Label(window, text = "\t\t\tEnter a New UserID", font = 'Helvetica 10')
+NewUserEnter.grid(row = 9, column = 0)
+#place to enter the ID
+NewUserID = Entry(window, width = 20, borderwidth = 6, font = 'Helvetica 12')
+NewUserID.grid(row = 9, column = 0, columnspan=4)
 
 # Button Logic
-def NewUserOnClick():
-    inputval1 = NewUserID.get()
-    print(inputval1)
-
 def RetUserOnClick():
     inputval1 = RetUserID.get()
-    print(inputval1)
-
+    list_of_users.append(int(inputval1))
+    RetUserID.delete(0, END)
     
-
-
+def NewUserOnClick():
+    inputval1 = NewUserID.get()
+    list_of_users.append(int(inputval1))
+    NewUserID.delete(0, END)
 
 # Buttons
-Button(window, text = "Enter", font = 'Helvetica 10 bold', command = NewUserOnClick).grid(row = 5, column = 3)
-Button(window, text = "Enter", font = 'Helvetica 10 bold', command = RetUserOnClick).grid(row = 8, column = 3)
-
+Button(window, text = "Enter", font = 'Helvetica 10 bold', command = NewUserOnClick).grid(row = 9, column = 1, sticky = E)
+Button(window, text = "Enter", font = 'Helvetica 10 bold', command = RetUserOnClick).grid(row = 6, column = 1, sticky = E)
 
 window.mainloop()
 
+#list_of_users
