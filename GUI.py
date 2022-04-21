@@ -5,10 +5,12 @@ import io
 from PIL import ImageTk, Image
 
 #Variable to hold user values
+#Variable to hold user values
 list_of_users = []
+num_books = []
 
 window = tk.Tk()
-window.geometry("1000x500")
+window.geometry("1000x600")
 
 link = "https://knowledgequest.aasl.org/wp-content/uploads/2019/05/GoodReads-logo.jpg"
 
@@ -34,7 +36,7 @@ topLabel = Label(window, text = "GoodReads Book Recommender System", font = 'Hel
 topLabel.grid(row = 1, column = 0, columnspan = 4)
 
 #label for returning user
-RetUserLabel = Label(window, text = "\nReturning User", font = 'Helvetica 12 bold')
+RetUserLabel = Label(window, text = "\n\nReturning User", font = 'Helvetica 12 bold')
 RetUserLabel.grid(row = 5, column = 0)
 #enter userID text
 RetUserEnter = Label(window, text = "\t\t\tEnter Returning UserID", font = 'Helvetica 10')
@@ -53,6 +55,16 @@ NewUserEnter.grid(row = 9, column = 0)
 NewUserID = Entry(window, width = 20, borderwidth = 6, font = 'Helvetica 12')
 NewUserID.grid(row = 9, column = 0, columnspan=4)
 
+#label for new user
+NumberBooksLabel = Label(window, text = "\n\tNo. of Books to Recommend", font = 'Helvetica 12 bold')
+NumberBooksLabel.grid(row = 11, column = 0)
+#label for number of books
+NumBookEnter = Label(window, text = "\t\t\tEnter Number of Books", font = 'Helvetica 10')
+NumBookEnter.grid(row = 12, column = 0)
+#place to enter the ID
+NumBooks = Entry(window, width = 20, borderwidth = 6, font = 'Helvetica 12')
+NumBooks.grid(row = 12, column = 0, columnspan=4)
+
 # Button Logic
 def RetUserOnClick():
     inputval1 = RetUserID.get()
@@ -64,10 +76,17 @@ def NewUserOnClick():
     list_of_users.append(int(inputval1))
     NewUserID.delete(0, END)
 
+def numBooks():
+    inputval1 = NumBooks.get()
+    num_books.append(int(inputval1))
+    NumBooks.delete(0, END)
+
 # Buttons
-Button(window, text = "Enter", font = 'Helvetica 10 bold', command = NewUserOnClick).grid(row = 9, column = 1, sticky = E)
 Button(window, text = "Enter", font = 'Helvetica 10 bold', command = RetUserOnClick).grid(row = 6, column = 1, sticky = E)
+Button(window, text = "Enter", font = 'Helvetica 10 bold', command = NewUserOnClick).grid(row = 9, column = 1, sticky = E)
+Button(window, text = "Enter", font = 'Helvetica 10 bold', command = numBooks).grid(row = 12, column = 1, sticky = E)
 
 window.mainloop()
 
 #list_of_users
+#num_books
