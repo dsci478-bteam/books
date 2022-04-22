@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#This script is used to convert the .json files from the good reads data to .csv files with the column names listed
+
 # Have all uncompressed .json files in same directory as script, or modify script to look at another location :)
 # Parts in the brackets e.g. [.book_id, .title, ...] are the variables being pulled from the .json files. 
 # That is what we would change if we needed to add other variables, but as of now I don't think we need to.
