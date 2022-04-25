@@ -18,6 +18,13 @@ books = pd.read_csv('red_books.csv')
 # Read sparse matrix encoding into df
 sparse_df = pd.read_csv('users_sparse.csv')
 
+def getRand(num_rec):
+    topBooks = books[books['avg_rating'] > 4.5]
+    if num_rec > len(books.avg_rating):
+        num_rec = len(books.avg_rating)
+    randomIds = np.random.choice(np.array(topBooks.book_id),num_rec)
+    return(randomIds)
+
 # gets num_rec book recommendations for user_id
 def getRec(user_id, num_rec):
     # Create Scipy sparse matrix and convert to compressed sparse row format for operations
@@ -49,6 +56,10 @@ def getRec(user_id, num_rec):
     for ind in nbrs['index']:
         nbr_books = np.array(sparse_df[sparse_df['r_index']==ind].c_index)
         set_diff = np.union1d(set_diff,np.setdiff1d(nbr_books,user_books))
+
+    # Check to make sure number of desired recommendations is smaller than number possible. If not adjust.
+    if num_rec > set_diff.size:
+        num_rec = set_diff.size
 
     # Get rows from users cooresponding to nbrs
     nbrs_books = users[nbrs['index']]
