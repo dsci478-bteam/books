@@ -20,8 +20,8 @@ sparse_df = pd.read_csv('users_sparse.csv')
 
 def getRand(num_rec):
     topBooks = books[books['avg_rating'] > 4.5]
-    if num_rec > len(books.avg_rating):
-        num_rec = len(books.avg_rating)
+    if num_rec > len(topBooks.avg_rating):
+        num_rec = len(topBooks.avg_rating)
     randomIds = np.random.choice(np.array(topBooks.book_id),num_rec)
     return(randomIds)
 
