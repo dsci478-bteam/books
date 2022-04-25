@@ -18,6 +18,7 @@ books = pd.read_csv('red_books.csv')
 # Read sparse matrix encoding into df
 sparse_df = pd.read_csv('users_sparse.csv')
 
+#gets n random books from the books with an average rating of 4.5 or higher
 def getRand(num_rec):
     topBooks = books[books['avg_rating'] > 4.5]
     if num_rec > len(topBooks.avg_rating):
@@ -56,10 +57,6 @@ def getRec(user_id, num_rec):
     for ind in nbrs['index']:
         nbr_books = np.array(sparse_df[sparse_df['r_index']==ind].c_index)
         set_diff = np.union1d(set_diff,np.setdiff1d(nbr_books,user_books))
-
-    # Check to make sure number of desired recommendations is smaller than number possible. If not adjust.
-    if num_rec > set_diff.size:
-        num_rec = set_diff.size
 
     # Get rows from users cooresponding to nbrs
     nbrs_books = users[nbrs['index']]
@@ -101,8 +98,12 @@ def getRec(user_id, num_rec):
 
     return(rec_books)
 
-    #count number of times the a user id/number of books entered correctly
+#EVERYTHING BELOW CREATES THE GUI
+#count number of times the a user id/number of books entered correctly
 correct_entries = []
+
+global new_user
+new_user = False
 
 total = 0
 
@@ -186,7 +187,8 @@ class FirstWindow():
         else:
             correct_entries.append(1)
             sum_of_entries(correct_entries)
-            #ret_id_entry.delete(0, END)
+            new_user = FALSE
+            ret_id_entry.delete(0, END)
  
     #GET NEW USER ID
     #label for new user
@@ -224,7 +226,8 @@ class FirstWindow():
         else:
             correct_entries.append(1)
             sum_of_entries(correct_entries)
-            #new_id_entry.delete(0, END) 
+            new_user = True
+            new_id_entry.delete(0, END) 
    
     #GET NUMBER OF BOOKS TO RECOMMEND
     #label for new user
@@ -247,15 +250,15 @@ class FirstWindow():
             num_books = ""
             num_books_entry.delete(0, END)
             return()
-        elif(int(num_books) > 10):
-            messagebox.showwarning(title = 'Python Warning', message = 'Warning: The entered number of books to recommend is larger than 10.\nEnter a smaller number.')
+        elif(int(num_books) > 20):
+            messagebox.showwarning(title = 'Python Warning', message = 'Warning: The entered number of books to recommend is larger than 20.\nEnter a smaller number.')
             num_books = ""
             num_books_entry.delete(0, END)
             return()
         else:
             correct_entries.append(1)
             sum_of_entries(correct_entries)
-            #num_books_entry.delete(0, END)
+            num_books_entry.delete(0, END)
 
     #space
     lab_space = Label(window, text = "\n\n\n\n", font = 'Helvetica 10')
@@ -270,8 +273,8 @@ class FirstWindow():
             win.geometry("1000x600")
             
             num_books_int = int(num_books)
-
-            if(user_id != ""):
+            print(new_user)
+            if new_user:
                 user_id_int = int(user_id)
                 rec_books = getRec(user_id_int, num_books_int)
                 
@@ -285,8 +288,16 @@ class FirstWindow():
                     sample.bind('<Enter>', lambda event:print(variable))
                     connect_callback(variable)
             else:
-                new_user_id_int = int(new_user_id)
-                print(new_user_id_int)
+                randomIds = getRand(num_books_int)
+                for i in range(randomIds.size):
+                    rand_rec = books[books['book_id']==randomIds[randomIds.size - (i + 1)]].title.to_string(index=False)
+                    rec_list = str(i+1) + ": " + rand_rec
+                    variable2 = rec_list
+                    sample2 = Label(win, text=variable2, font = 'Helvetica 12 bold')
+                    sample2.grid(row = i+1, column = 0, columnspan = 4, ipadx=250)
+                def connect_callback(variable2):
+                    sample2.bind('<Enter>', lambda event:print(variable2))
+                    connect_callback(variable2)
             win.mainloop()
 
     # Buttons
