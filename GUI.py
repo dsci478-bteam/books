@@ -273,7 +273,7 @@ class FirstWindow():
             win.geometry("1000x600")
             
             num_books_int = int(num_books)
-            print(new_user)
+
             if new_user:
                 user_id_int = int(user_id)
                 rec_books = getRec(user_id_int, num_books_int)
