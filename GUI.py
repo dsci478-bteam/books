@@ -147,20 +147,24 @@ class FirstWindow():
     label_img.grid(row = 0, column = 0, columnspan = 4)
 
     #add title below image
-    topLabel = Label(window, text = "GoodReads Book Recommender System", font = 'Helvetica 18 bold', width=65)
+    topLabel = Label(window, text = "Source: https://knowledgequest.aasl.org/wp-content/uploads/2019/05/GoodReads-logo.jpg", font = 'Helvetica 8', width=72)
     topLabel.grid(row = 1, column = 0, columnspan = 4)
+
+    #add title below image
+    topLabel = Label(window, text = "GoodReads Book Recommender System", font = 'Helvetica 18 bold', width=65)
+    topLabel.grid(row = 3, column = 0, columnspan = 4)
     
     #GET RETURNING USER ID
     #label for returning user
     lab_ret_user = Label(window, text = "\n\nReturning User", font = 'Helvetica 12 bold')
-    lab_ret_user.grid(row = 5, column = 0)
+    lab_ret_user.grid(row = 6, column = 0)
     #Label to describe what to enter
     lab_ret_id_ent = Label(window, text = "\t\t\tEnter Returning User ID", font = 'Helvetica 10')
-    lab_ret_id_ent.grid(row = 6, column = 0)
+    lab_ret_id_ent.grid(row = 7, column = 0)
     #Place to enter the returning user id
     global ret_id_entry
     ret_id_entry = Entry(window, width = 20, borderwidth = 6, font = 'Helvetica 12')
-    ret_id_entry.grid(row = 6, column = 0, columnspan=4)
+    ret_id_entry.grid(row = 7, column = 0, columnspan=4)
     # Button Logic when press enter
     def ret_user_button():
         #get the entered returning user id
@@ -193,14 +197,14 @@ class FirstWindow():
     #GET NEW USER ID
     #label for new user
     lab_new_user = Label(window, text = "\nNew User", font = 'Helvetica 12 bold')
-    lab_new_user.grid(row = 8, column = 0)
+    lab_new_user.grid(row = 9, column = 0)
     #enter userID text
     lab_new_id_ent = Label(window, text = "\t\t\tEnter a New User ID", font = 'Helvetica 10')
-    lab_new_id_ent.grid(row = 9, column = 0)
+    lab_new_id_ent.grid(row = 10, column = 0)
     #place to enter the ID
     global new_id_entry
     new_id_entry = Entry(window, width = 20, borderwidth = 6, font = 'Helvetica 12')
-    new_id_entry.grid(row = 9, column = 0, columnspan=4)
+    new_id_entry.grid(row = 10, column = 0, columnspan=4)
     #Button logic when push enter
     def new_user_button():
         global new_user_id
@@ -232,14 +236,14 @@ class FirstWindow():
     #GET NUMBER OF BOOKS TO RECOMMEND
     #label for new user
     lab_book_rec = Label(window, text = "\n\tNo. of Books to Recommend", font = 'Helvetica 12 bold')
-    lab_book_rec.grid(row = 11, column = 0)
+    lab_book_rec.grid(row = 12, column = 0)
     #label for number of books
     lab_num_books = Label(window, text = "\t\t\tEnter Number of Books", font = 'Helvetica 10')
-    lab_num_books.grid(row = 12, column = 0)
+    lab_num_books.grid(row = 13, column = 0)
     #place to enter the ID
     global num_books_entry
     num_books_entry = Entry(window, width = 20, borderwidth = 6, font = 'Helvetica 12')
-    num_books_entry.grid(row = 12, column = 0, columnspan=4)
+    num_books_entry.grid(row = 13, column = 0, columnspan=4)
     #Button logic when press enter
     def num_books_button():
         global num_books
@@ -262,7 +266,7 @@ class FirstWindow():
 
     #space
     lab_space = Label(window, text = "\n\n\n\n", font = 'Helvetica 10')
-    lab_space.grid(row = 12, column = 0)
+    lab_space.grid(row = 13, column = 0)
 
     def SecondWindow():
         if(total < 2):
@@ -283,7 +287,7 @@ class FirstWindow():
                     rec_list = str(i+1) + ": " + rec
                     variable = rec_list
                     sample = Label(win, text=variable, font = 'Helvetica 12 bold')
-                    sample.grid(row = i+1, column = 0, columnspan = 4, ipadx=250)
+                    sample.grid(row = i+1, column = 0, columnspan = 4, ipadx=275)
                 def connect_callback(variable):
                     sample.bind('<Enter>', lambda event:print(variable))
                     connect_callback(variable)
@@ -294,17 +298,17 @@ class FirstWindow():
                     rec_list = str(i+1) + ": " + rand_rec
                     variable2 = rec_list
                     sample2 = Label(win, text=variable2, font = 'Helvetica 12 bold')
-                    sample2.grid(row = i+1, column = 0, columnspan = 4, ipadx=250)
+                    sample2.grid(row = i+1, column = 0, columnspan = 4, ipadx=275)
                 def connect_callback(variable2):
                     sample2.bind('<Enter>', lambda event:print(variable2))
                     connect_callback(variable2)
             win.mainloop()
 
     # Buttons
-    Button(window, text = "Enter", font = 'Helvetica 10 bold', command = ret_user_button).grid(row = 6, column = 1, sticky = E)
-    Button(window, text = "Enter", font = 'Helvetica 10 bold', command = new_user_button).grid(row = 9, column = 1, sticky = E)
-    Button(window, text = "Enter", font = 'Helvetica 10 bold', command = num_books_button).grid(row = 12, column = 1, sticky = E)
-    Button(window, text = "Click Here to Get Book Recommendations!", font = 'Helvetica 12 bold', command = SecondWindow).grid(row = 15, column = 0, columnspan = 4)
+    Button(window, text = "Enter", font = 'Helvetica 10 bold', command = ret_user_button).grid(row = 7, column = 1, sticky = E)
+    Button(window, text = "Enter", font = 'Helvetica 10 bold', command = new_user_button).grid(row = 10, column = 1, sticky = E)
+    Button(window, text = "Enter", font = 'Helvetica 10 bold', command = num_books_button).grid(row = 13, column = 1, sticky = E)
+    Button(window, text = "Click Here to Get Book Recommendations!", font = 'Helvetica 12 bold', command = SecondWindow).grid(row = 16, column = 0, columnspan = 4)
         
 
     #this opens the window and keeps it open until someone closes the window
