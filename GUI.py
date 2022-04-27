@@ -286,8 +286,8 @@ class FirstWindow():
                     rec = books[books['book_id']==rec_books[rec_books.size - (i + 1)]].title.to_string(index=False)
                     rec_list = str(i+1) + ": " + rec
                     variable = rec_list
-                    sample = Label(win, text=variable, font = 'Helvetica 12 bold')
-                    sample.grid(row = i+1, column = 0, columnspan = 4, ipadx=275)
+                    sample = Label(win, text=variable, font = 'Helvetica 12 bold', width = 100)
+                    sample.grid(row = i+1, column = 0, columspan = 5, sticky = E)
                 def connect_callback(variable):
                     sample.bind('<Enter>', lambda event:print(variable))
                     connect_callback(variable)
@@ -297,8 +297,8 @@ class FirstWindow():
                     rand_rec = books[books['book_id']==randomIds[randomIds.size - (i + 1)]].title.to_string(index=False)
                     rec_list = str(i+1) + ": " + rand_rec
                     variable2 = rec_list
-                    sample2 = Label(win, text=variable2, font = 'Helvetica 12 bold')
-                    sample2.grid(row = i+1, column = 0, columnspan = 4, ipadx=275)
+                    sample2 = Label(win, text=variable2, font = 'Helvetica 12 bold', width = 100)
+                    sample2.grid(row = i+1, column = 0, columnspan = 5, sticky = E)
                 def connect_callback(variable2):
                     sample2.bind('<Enter>', lambda event:print(variable2))
                     connect_callback(variable2)
