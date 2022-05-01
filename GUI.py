@@ -102,11 +102,9 @@ def getRec(user_id, num_rec):
 #count number of times the a user id/number of books entered correctly
 correct_entries = []
 
-global new_user
-new_user = False
-
+#used to determine how many entires have been entered properly
+    #if a user only enters a user Id but not the number of books to recommend an error message will be displayed
 total = 0
-
 def sum_of_entries(l):
     global total
     total = 0
@@ -114,6 +112,7 @@ def sum_of_entries(l):
         total = total + val
     return(total)
 
+#class used to get a image from an online source to use in the GUI
 class WebImage():
     def __init__(self, url):
         with urllib.request.urlopen(url) as u:
@@ -125,6 +124,7 @@ class WebImage():
     def get(self):
         return self.image
 
+#class to create the first window that is displayed in the GUI
 class FirstWindow():
     #Create the tkinter object called window
     global window
@@ -151,7 +151,7 @@ class FirstWindow():
     topLabel.grid(row = 1, column = 0, columnspan = 4)
 
     #add title below image
-    topLabel = Label(window, text = "GoodReads Book Recommender System", font = 'Helvetica 18 bold', width=65)
+    topLabel = Label(window, text = "Goodreads Book Recommender System", font = 'Helvetica 18 bold', width=65)
     topLabel.grid(row = 3, column = 0, columnspan = 4)
     
     #GET RETURNING USER ID
@@ -172,8 +172,10 @@ class FirstWindow():
         user_id = ret_id_entry.get()
         #check if entry is a digit
         if not user_id.isdigit():
+            #messagebox displays a new window with the error message
             messagebox.showerror(title = 'Python Error', message = "Error: Entered User ID is not a number.\nTry again.")
             user_id = ""
+            #This deleted the user entry in the box once the button is clicked
             ret_id_entry.delete(0, END)
             return()
         #check if entered user id is too large
@@ -188,12 +190,16 @@ class FirstWindow():
             user_id = ""
             ret_id_entry.delete(0, END)
             return()
+        #the user Id has been entered correctly
+        #add a 1 to the correct _entries list variable and sum up the values in that list
+        #set new_user to False since a returning user id was entered
         else:
             correct_entries.append(1)
             sum_of_entries(correct_entries)
-            new_user = FALSE
             ret_id_entry.delete(0, END)
- 
+            global new_user
+            new_user = False
+
     #GET NEW USER ID
     #label for new user
     lab_new_user = Label(window, text = "\nNew User", font = 'Helvetica 12 bold')
@@ -227,11 +233,16 @@ class FirstWindow():
             new_user_id = ""
             new_id_entry.delete(0, END)
             return()
+        #the user Id has been entered correctly
+        #add a 1 to the correct _entries list variable and sum up the values in that list
+        #set new_user to True since a new user id was entered
         else:
             correct_entries.append(1)
             sum_of_entries(correct_entries)
-            new_user = True
             new_id_entry.delete(0, END) 
+            #global varaible to determine if a new user is using the GUI
+            global new_user
+            new_user = True
    
     #GET NUMBER OF BOOKS TO RECOMMEND
     #label for new user
@@ -260,6 +271,8 @@ class FirstWindow():
             num_books_entry.delete(0, END)
             return()
         else:
+        #the number of books has been entered correctly
+        #add a 1 to the correct _entries list variable and sum up the values in that list
             correct_entries.append(1)
             sum_of_entries(correct_entries)
             num_books_entry.delete(0, END)
@@ -268,48 +281,61 @@ class FirstWindow():
     lab_space = Label(window, text = "\n\n\n\n", font = 'Helvetica 10')
     lab_space.grid(row = 13, column = 0)
 
+    #function to display the second window that will list the books that are being recommended
     def SecondWindow():
+        #if there were not 2 correct entires given an error is displayed
         if(total < 2):
             messagebox.showerror(title = 'Python Error', message = 'Error: The user ID and number of books needs to be entered first. ')
+        #if two entries are correctly given create the new window with the same dimensions as the previous window
         else:
             win = tk.Tk()
             win.title('GoodReadsBookRecommendations')
             win.geometry("1000x600")
             
+            #will need to convert the user given data to integers instead of string variables to properly use the 
+                #previously defined function (getRec() and getRand()) to get the list of books
             num_books_int = int(num_books)
 
-            if new_user:
+            #if a returning user id is provided (aka new_user = False)
+            if not new_user:
                 user_id_int = int(user_id)
                 rec_books = getRec(user_id_int, num_books_int)
                 
+                #loop over the returned list of books from the getRec function
                 for i in range(rec_books.size):
+                    #get the title of the book using the book id
                     rec = books[books['book_id']==rec_books[rec_books.size - (i + 1)]].title.to_string(index=False)
+                    #add a listing number (1, 2, 3, etc.) and a : before the title of the book
                     rec_list = str(i+1) + ": " + rec
-                    variable = rec_list
-                    sample = Label(win, text=variable, font = 'Helvetica 12 bold', width = 100)
-                    sample.grid(row = i+1, column = 0, columspan = 5, sticky = E)
-                def connect_callback(variable):
-                    sample.bind('<Enter>', lambda event:print(variable))
-                    connect_callback(variable)
+                    book_title = rec_list
+                    #create the label that will display the book titles
+                    book_list = Label(win, text=book_title, font = 'Helvetica 12 bold', width = 100)
+                    book_list.grid(row = i+1, column = 0, columnspan = 5, sticky = E)
+                #use a lambda function to recursively print each of the book titles
+                def connect_callback(title):
+                    book_list.bind('<Enter>', lambda event:print(title))
+                    connect_callback(title)
             else:
+                #if a random id is entered use the getRand function to get the list of books 
+                    #(see above comments for further explanation as process is quite similar)
                 randomIds = getRand(num_books_int)
                 for i in range(randomIds.size):
                     rand_rec = books[books['book_id']==randomIds[randomIds.size - (i + 1)]].title.to_string(index=False)
                     rec_list = str(i+1) + ": " + rand_rec
-                    variable2 = rec_list
-                    sample2 = Label(win, text=variable2, font = 'Helvetica 12 bold', width = 100)
-                    sample2.grid(row = i+1, column = 0, columnspan = 5, sticky = E)
-                def connect_callback(variable2):
-                    sample2.bind('<Enter>', lambda event:print(variable2))
-                    connect_callback(variable2)
+                    rand_book_title = rec_list
+                    rand_book_list = Label(win, text=rand_book_title, font = 'Helvetica 12 bold', width = 100)
+                    rand_book_list.grid(row = i+1, column = 0, columnspan = 5, sticky = E)
+                def connect_callback(rand_title):
+                    rand_book_list.bind('<Enter>', lambda event:print(rand_title))
+                    connect_callback(rand_title)
+                    #use the returning user id to list the book recommendations
             win.mainloop()
 
-    # Buttons
+    # Buttons that are displayed on the first window (Enter button etc.)
     Button(window, text = "Enter", font = 'Helvetica 10 bold', command = ret_user_button).grid(row = 7, column = 1, sticky = E)
     Button(window, text = "Enter", font = 'Helvetica 10 bold', command = new_user_button).grid(row = 10, column = 1, sticky = E)
     Button(window, text = "Enter", font = 'Helvetica 10 bold', command = num_books_button).grid(row = 13, column = 1, sticky = E)
     Button(window, text = "Click Here to Get Book Recommendations!", font = 'Helvetica 12 bold', command = SecondWindow).grid(row = 16, column = 0, columnspan = 4)
-        
-
+    
     #this opens the window and keeps it open until someone closes the window
     window.mainloop()
