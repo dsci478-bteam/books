@@ -113,6 +113,7 @@ def sum_of_entries(l):
     return(total)
 
 #class used to get a image from an online source to use in the GUI
+#https://stackoverflow.com/questions/65635835/displaying-image-from-url-in-python-tkinter
 class WebImage():
     def __init__(self, url):
         with urllib.request.urlopen(url) as u:
@@ -126,6 +127,7 @@ class WebImage():
 
 #class to create the first window that is displayed in the GUI
 class FirstWindow():
+    #https://www.youtube.com/watch?v=_PHJvjQJa3w
     #Create the tkinter object called window
     global window
     window = tk.Tk()
@@ -173,6 +175,7 @@ class FirstWindow():
         #check if entry is a digit
         if not user_id.isdigit():
             #messagebox displays a new window with the error message
+            #https://docs.python.org/3/library/tkinter.messagebox.html
             messagebox.showerror(title = 'Python Error', message = "Error: Entered User ID is not a number.\nTry again.")
             user_id = ""
             #This deleted the user entry in the box once the button is clicked
@@ -302,6 +305,7 @@ class FirstWindow():
                 rec_books = getRec(user_id_int, num_books_int)
                 
                 #loop over the returned list of books from the getRec function
+                #https://stackoverflow.com/questions/38559778/tkinter-print-specified-item-from-list-in-loop
                 for i in range(rec_books.size):
                     #get the title of the book using the book id
                     rec = books[books['book_id']==rec_books[rec_books.size - (i + 1)]].title.to_string(index=False)
