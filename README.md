@@ -16,7 +16,7 @@ The following files are too large to stored on Github so each are stored on Goog
 
 This repo uses Git Large File Storage. In order to clone the repository completely one needs to install Git LFS ([found here](https://git-lfs.github.com/)) onto their local instance of git, and run `git lfs install`.
 
-In addition the following Python packages are used in the GUI:
+In addition the following Python packages are used in the GUI (most recent versions are fine):
 - [numpy](https://numpy.org/)
 - [numpy_indexed](https://github.com/EelcoHoogendoorn/Numpy_arraysetops_EP)
 - [pandas](https://pandas.pydata.org/)
