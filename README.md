@@ -1,14 +1,16 @@
 # Final Project DSCI 487
 Written by Mandey Brown, Sam Fortescue, Emma Hamilton
 
+# Data
+
+**Note:** the GUI does not depend on these files, so there is no need to download them unless your intention is to run data.ipynb.
+
 First step of the process: use the Young Adult genre data that can be gathered from: https://sites.google.com/eng.ucsd.edu/ucsdbookgraph/home
 
 Unpack the .gz file and run the jsontocsv.sh script to convert the json files to csv files. Or use the links below.
 The following files are too large to stored on Github so each are stored on Google Drive and can be accessed through the following links:
 - Books: https://drive.google.com/file/d/15DvRQIdkXVg3qXVkyDm2GsgXVcTmgzYj/view?usp=sharing
 - Interactions: https://drive.google.com/file/d/1fw03Bv9094adgGqZHvPcSE6O_HaKV5nf/view?usp=sharing
-
-**Note:** the GUI does not depend on these files, so there is no need to download them unless your intention is to run data.ipynb.
 
 # Dependencies
 
@@ -21,6 +23,7 @@ In addition the following Python packages are used in the GUI:
 - [scipy](https://scipy.org/)
 - [sklearn](https://scikit-learn.org/stable/index.html)
 - [tkinter](https://tkdocs.com/index.html) (for install see [here](https://realpython.com/python-gui-tkinter/))
+- [pillow](https://python-pillow.org/) (if you an error message running GUI related to 'ImageTK' see [here](https://stackoverflow.com/questions/48317606/importerror-cannot-import-name-imagetk))
 
 # About
 
