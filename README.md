@@ -23,7 +23,7 @@ In addition the following Python packages are used in the GUI:
 - [scipy](https://scipy.org/)
 - [sklearn](https://scikit-learn.org/stable/index.html)
 - [tkinter](https://tkdocs.com/index.html) (for install see [here](https://realpython.com/python-gui-tkinter/))
-- [pillow](https://python-pillow.org/) (if you get an error message running GUI.py that is related to 'ImageTK' see [here](https://stackoverflow.com/questions/48317606/importerror-cannot-import-name-imagetk))
+- [pillow](https://python-pillow.org/) (should be in base Python, however if you get an error message running GUI.py that is related to 'ImageTK' see [here](https://stackoverflow.com/questions/48317606/importerror-cannot-import-name-imagetk))
 
 # About
 
