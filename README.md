@@ -4,9 +4,11 @@ Written by Mandey Brown, Sam Fortescue, Emma Hamilton
 First step of the process: use the Young Adult genre data that can be gathered from: https://sites.google.com/eng.ucsd.edu/ucsdbookgraph/home
 
 Unpack the .gz file and run the jsontocsv.sh script to convert the json files to csv files. Or use the links below.
-The following files are too large to stored on Github so each are stored on Google Drive and can be accessed through the following links, however we note that the GUI does not depend on these files:
+The following files are too large to stored on Github so each are stored on Google Drive and can be accessed through the following links:
 - Books: https://drive.google.com/file/d/15DvRQIdkXVg3qXVkyDm2GsgXVcTmgzYj/view?usp=sharing
 - Interactions: https://drive.google.com/file/d/1fw03Bv9094adgGqZHvPcSE6O_HaKV5nf/view?usp=sharing
+
+**Note:** the GUI does not depend on these files, so there is no need to download them unless your intention is to run data.ipynb.
 
 # Dependencies
 
