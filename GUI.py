@@ -1,6 +1,7 @@
 import math
 import numpy as np
 # numpy_indexed --> https://github.com/EelcoHoogendoorn/Numpy_arraysetops_EP
+# found here: https://stackoverflow.com/questions/16992713/translate-every-element-in-numpy-array-according-to-key
 import numpy_indexed as npi 
 import pandas as pd
 from scipy.sparse import coo_matrix
